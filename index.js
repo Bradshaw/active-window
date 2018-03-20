@@ -62,8 +62,9 @@ function reponseTreatment(response){
     window.title = response[1];
   }else if(process.platform == 'darwin'){
     response = response.split(",");
-    window.app = response[0];
-    window.title = response[1].replace(/\n$/, "").replace(/^\s/, "");
+    window.app = response.shift();
+    response.map(r => r.replace(/\n$/, "").replace(/^\s/, ""));
+    window.title = response.join(",");
   }
   return window;
 }
