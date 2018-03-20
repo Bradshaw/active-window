@@ -27,19 +27,19 @@ exports.getActiveWindow = function(callback,repeats,interval){
   parameters  = config.parameters;
   parameters.push(repeats);
   parameters.push(process.platform == 'win32' ? (interval * 1000 | 0) : interval);
-
+  
   //Run shell script
   const ls  = spawn(config.bin,parameters);
   ls.stdout.setEncoding('utf8');
 
   //Obtain successful response from script
   ls.stdout.on('data', function(stdout){
-    callback(reponseTreatment(stdout.toString()));
+    callback(null,reponseTreatment(stdout.toString()));
   });
 
   //Obtain error response from script
   ls.stderr.on("data",function(stderr){
-   throw stderr.toString();
+    callback(new Error(stderr.toString()), null);
   });
 
   ls.stdin.end();
