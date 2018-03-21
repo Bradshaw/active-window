@@ -1,3 +1,4 @@
+#!/usr/bin/env osascript
 global frontApp, frontAppName, windowTitle
 set windowTitle to ""
 tell application "System Events"
